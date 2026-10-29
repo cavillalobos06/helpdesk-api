@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
-import { IsString, IsInt, IsEmpty, MinLength, IsEmail } from 'class-validator';
+import { IsString, IsEmpty, MinLength, IsEmail } from 'class-validator';
 
 @Entity('Usuario')
 export class User {
