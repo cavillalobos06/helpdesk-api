@@ -4,6 +4,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import Joi from 'joi';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './users/users.module.js';
+import { TicketModule } from './ticket/ticket.module.js';
+import { CategoryModule } from './category/category.module.js';
 
 export const { ObserveModule, ObserveInstrument } = createObserveModule();
 
@@ -39,6 +41,8 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
       serviceId: 'helpdesk-api',
     }),
     UsersModule,
+    TicketModule,
+    CategoryModule,
   ],
   controllers: [],
   providers: [],

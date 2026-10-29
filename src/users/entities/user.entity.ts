@@ -1,43 +1,42 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
-import { IsString, IsInt, IsEmpty, MinLength, IsEmail } from 'class-validator';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { Ticket } from '../../ticket/entities/ticket.entity.js';
+import { UserRole } from '../../common/enum.js';
 
-@Entity('Usuario')
+@Entity('User')
 export class User {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column({ type: 'varchar' })
-  @IsString()
-  @IsEmpty()
   name: string;
 
   @Column({ type: 'varchar', unique: true })
-  @IsString()
-  @IsEmail()
   email: string;
 
   @Column({ type: 'varchar' })
-  @IsString()
-  @IsEmpty()
-  @MinLength(6)
   password: string;
 
-  @Column({type: 'varchar'})
-  @IsString()
-  country: string
+  @Column({ type: 'enum', enum: UserRole, default: UserRole.CUSTOMER })
+  role: UserRole;
 
-  @Column({type: 'varchar'})
-  @IsString()
+  @Column({ type: 'varchar' })
+  country: string;
+
+  @Column({ type: 'varchar' })
   city: string;
 
-  @Column({type: 'varchar'})
-  @IsString()
+  @Column({ type: 'varchar' })
   phone: string;
 
-  @Column({type: 'varchar'})
-  @IsString()
+  @Column({ type: 'varchar' })
   birthdate: string;
 
-  @Column({type: 'varchar'})
+  @Column({ type: 'enum', enum: ["MALE", "FEMALE"] })
   gender?: string;
+
+  @OneToMany(() => Ticket, (ticket) => ticket.customer)
+  createdTickets: Ticket[];
+
+  @OneToMany(() => Ticket, (ticket) => ticket.assignedAgent)
+  assignedTickets: Ticket[];
 }
