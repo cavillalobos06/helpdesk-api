@@ -32,8 +32,8 @@ export interface TicketProps {
   description: string;
   status: TicketStatus;
   priority: TicketPriority;
-  customerId: number;
-  assignedAgentId: number | null;
+  customerId: string;
+  assignedAgentId: string | null;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -45,7 +45,7 @@ export class Ticket {
     title: string;
     description: string;
     priority?: TicketPriority;
-    customerId: number;
+    customerId: string;
   }): Ticket {
     const title = input.title.trim();
     if (title.length < 5) {
@@ -71,7 +71,7 @@ export class Ticket {
     return new Ticket(props);
   }
 
-  assignTo(agentId: number): void {
+  assignTo(agentId: string): void {
     if (this.props.status === 'closed') {
       throw new DomainError('A closed ticket cannot be assigned.');
     }
